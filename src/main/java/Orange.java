@@ -9,7 +9,7 @@ public class Orange {
     private GpioController gpioController;
     private GpioPinDigitalOutput whistle;
     private GoalCallback callback;
-    private int goalcoolingtime = 1000;
+    private int goalcoolingtime = 2000;
     private long lastgpioevent;
 
     public Orange(GoalCallback callback){
@@ -30,7 +30,7 @@ public class Orange {
     private GpioPinListenerDigital goallistener = new GpioPinListenerDigital() {
         @Override
         public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
-            if (System.currentTimeMillis() - lastgpioevent >= goalcoolingtime){
+            if (System.currentTimeMillis() - lastgpioevent >= goalcoolingtime && event.getState().isLow()) {
                 lastgpioevent = System.currentTimeMillis();
                 callback.goal(event);
             }

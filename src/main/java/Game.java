@@ -35,10 +35,14 @@ public class Game {
     }
 
     public int goalteam1(){
-        return ++team1score;
+        if (++team1score == MAXSCORE)
+            newGame();
+        return team1score;
     }
     public int goalteam2(){
-        return ++team2score;
+        if (++team2score == MAXSCORE)
+            newGame();
+        return team2score;
     }
 
     public void newGame(){
